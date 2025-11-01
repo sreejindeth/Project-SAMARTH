@@ -28,20 +28,20 @@ class ProductionTrendPlugin(QueryPlugin):
 
     def can_handle(self, params: Dict[str, Any]) -> bool:
         """Check if we have required parameters."""
-        required = ["state", "crop"]
+        required = ["region", "crop"]
         return all(params.get(key) for key in required)
 
     def validate_params(self, params: Dict[str, Any]) -> tuple[bool, Optional[str]]:
         """Validate parameters."""
-        if not params.get("state"):
-            return False, "Missing state parameter"
+        if not params.get("region"):
+            return False, "Missing region parameter"
         if not params.get("crop"):
             return False, "Missing crop parameter"
         return True, None
 
     def execute(self, params: Dict[str, Any], data: Dict[str, pd.DataFrame]) -> Dict[str, Any]:
         """Execute production trend query."""
-        state = params["state"]
+        state = params["region"]
         crop = params["crop"]
         n_years = params.get("years", 10)
 

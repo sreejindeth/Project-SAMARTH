@@ -27,24 +27,24 @@ class PolicyArgumentsPlugin(QueryPlugin):
 
     def can_handle(self, params: Dict[str, Any]) -> bool:
         """Check if we have required parameters."""
-        required = ["state", "current_crop", "proposed_crop"]
+        required = ["region", "crop_a", "crop_b"]
         return all(params.get(key) for key in required)
 
     def validate_params(self, params: Dict[str, Any]) -> tuple[bool, Optional[str]]:
         """Validate parameters."""
-        if not params.get("state"):
-            return False, "Missing state parameter"
-        if not params.get("current_crop"):
-            return False, "Missing current_crop parameter"
-        if not params.get("proposed_crop"):
-            return False, "Missing proposed_crop parameter"
+        if not params.get("region"):
+            return False, "Missing region parameter"
+        if not params.get("crop_a"):
+            return False, "Missing crop_a parameter"
+        if not params.get("crop_b"):
+            return False, "Missing crop_b parameter"
         return True, None
 
     def execute(self, params: Dict[str, Any], data: Dict[str, pd.DataFrame]) -> Dict[str, Any]:
         """Execute policy arguments query."""
-        state = params["state"]
-        current_crop = params["current_crop"]
-        proposed_crop = params["proposed_crop"]
+        state = params["region"]
+        current_crop = params["crop_a"]
+        proposed_crop = params["crop_b"]
         n_years = params.get("years", 5)
 
         agri_df = data["agriculture"]
