@@ -46,7 +46,6 @@ Thumbs.db
 
 # Data cache
 backend/data/cache/
-*.csv
 backend/data/raw/
 
 # Pytest
