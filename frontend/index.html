@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Project Samarth Prototype</title>
+  <style>
+    :root {
+      --bg: #f5f7fb;
+      --card-bg: rgba(255, 255, 255, 0.9);
+      --text: #1f2933;
+      --muted: #52606d;
+      --border: rgba(31, 41, 51, 0.08);
+      --accent: #2962ff;
+      --accent-soft: rgba(41, 98, 255, 0.12);
+      --accent-strong: rgba(41, 98, 255, 0.25);
+      --shadow: 0 18px 40px rgba(15, 23, 42, 0.12);
+      --radius-lg: 20px;
+      --radius-sm: 10px;
+      --transition: 0.25s ease;
+      color-scheme: light;
+    }
+
+    body[data-theme="dark"] {
+      --bg: #0f172a;
+      --card-bg: rgba(17, 25, 40, 0.92);
+      --text: #e2e8f0;
+      --muted: #94a3b8;
+      --border: rgba(148, 163, 184, 0.07);
+      --accent: #60a5fa;
+      --accent-soft: rgba(96, 165, 250, 0.18);
+      --accent-strong: rgba(96, 165, 250, 0.35);
+      --shadow: 0 18px 40px rgba(8, 47, 73, 0.3);
+      color-scheme: dark;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      body:not([data-theme]) {
+        --bg: #0f172a;
+        --card-bg: rgba(17, 25, 40, 0.92);
+        --text: #e2e8f0;
+        --muted: #94a3b8;
+        --border: rgba(148, 163, 184, 0.07);
+        --accent: #60a5fa;
+        --accent-soft: rgba(96, 165, 250, 0.18);
+        --accent-strong: rgba(96, 165, 250, 0.35);
+        --shadow: 0 18px 40px rgba(8, 47, 73, 0.3);
+        color-scheme: dark;
+      }
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Inter", "Segoe UI", system-ui, -apple-system, sans-serif;
+      background: radial-gradient(circle at 20% 20%, rgba(41, 98, 255, 0.08), transparent 55%),
+                  radial-gradient(circle at 80% 0%, rgba(94, 234, 212, 0.09), transparent 35%),
+                  var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      transition: background var(--transition), color var(--transition);
+    }
+
+    .app-shell {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 56px 24px 72px;
+    }
+
+    .top-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 28px;
+    }
+
+    .brand {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .brand h1 {
+      margin: 0;
+      font-size: 28px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+
+    .brand span {
+      color: var(--muted);
+      font-size: 15px;
+    }
+
+    .toggle-btn {
+      appearance: none;
+      border: 1px solid var(--border);
+      background: var(--card-bg);
+      color: var(--text);
+      padding: 10px 14px;
+      border-radius: var(--radius-sm);
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 500;
+      box-shadow: 0 10px 24px rgba(15, 23, 42, 0.05);
+      transition: background var(--transition), transform var(--transition), border var(--transition);
+    }
+
+    .toggle-btn:hover {
+      transform: translateY(-1px);
+      border-color: var(--accent);
+    }
+
+    .toggle-swatch {
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--accent) 0%, rgba(148, 163, 184, 0.4) 100%);
+      box-shadow: inset 0 0 5px rgba(15, 23, 42, 0.18);
+    }
+
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 24px 28px;
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(20px);
+      margin-bottom: 24px;
+      transition: background var(--transition), border var(--transition), box-shadow var(--transition);
+    }
+
+    .card p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.6;
+      font-size: 15px;
+    }
+
+    .control-grid {
+      display: grid;
+      gap: 18px;
+    }
+
+    .controls-row {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 18px;
+    }
+
+    label {
+      display: inline-block;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      color: var(--muted);
+      margin-bottom: 8px;
+      text-transform: uppercase;
+    }
+
+    select, input, textarea {
+      width: 100%;
+      font: inherit;
+      border-radius: var(--radius-sm);
+      border: 1px solid rgba(148, 163, 184, 0.3);
+      background: rgba(255, 255, 255, 0.65);
+      padding: 12px 14px;
+      color: var(--text);
+      transition: border var(--transition), background var(--transition), box-shadow var(--transition);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.35);
+    }
+
+    body[data-theme="dark"] select,
+    body[data-theme="dark"] input,
+    body[data-theme="dark"] textarea {
+      background: rgba(15, 23, 42, 0.65);
+      border-color: rgba(148, 163, 184, 0.25);
+      box-shadow: none;
+    }
+
+    select:focus, input:focus, textarea:focus {
+      outline: none;
+      border-color: var(--accent);
+      background: rgba(255, 255, 255, 0.88);
+      box-shadow: 0 0 0 4px var(--accent-soft);
+    }
+
+    body[data-theme="dark"] select:focus,
+    body[data-theme="dark"] input:focus,
+    body[data-theme="dark"] textarea:focus {
+      background: rgba(15, 23, 42, 0.85);
+      box-shadow: 0 0 0 4px var(--accent-soft);
+    }
+
+    textarea {
+      min-height: 150px;
+      resize: vertical;
+      line-height: 1.5;
+    }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      align-items: center;
+      justify-content: flex-end;
+    }
+
+    button.primary {
+      background: var(--accent);
+      border: none;
+      color: white;
+      font-weight: 600;
+      padding: 12px 22px;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      transition: transform var(--transition), box-shadow var(--transition), opacity var(--transition);
+      box-shadow: 0 12px 30px var(--accent-strong);
+    }
+
+    button.secondary {
+      background: transparent;
+      color: var(--muted);
+      border: 1px solid rgba(148, 163, 184, 0.3);
+      padding: 11px 20px;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      transition: border var(--transition), color var(--transition), transform var(--transition);
+    }
+
+    button.primary:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 14px 36px var(--accent-strong);
+    }
+
+    button.secondary:hover {
+      color: var(--accent);
+      border-color: var(--accent);
+      transform: translateY(-1px);
+    }
+
+    button:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+      transform: none;
+      box-shadow: none;
+    }
+
+    .status-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      color: var(--muted);
+      min-height: 18px;
+    }
+
+    .status-row .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--muted);
+      transition: background var(--transition);
+    }
+
+    .status-row.active .dot {
+      background: var(--accent);
+      box-shadow: 0 0 0 6px var(--accent-soft);
+    }
+
+    .answer {
+      white-space: pre-wrap;
+      line-height: 1.6;
+      font-size: 15px;
+      margin-bottom: 16px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 16px;
+      border-radius: var(--radius-sm);
+      overflow: hidden;
+    }
+
+    th, td {
+      padding: 12px 14px;
+      font-size: 14px;
+      border-bottom: 1px solid rgba(148, 163, 184, 0.18);
+    }
+
+    th {
+      background: rgba(148, 163, 184, 0.12);
+      text-align: left;
+      font-weight: 600;
+      letter-spacing: 0.01em;
+    }
+
+    body[data-theme="dark"] th {
+      background: rgba(148, 163, 184, 0.08);
+    }
+
+    tr:last-child td {
+      border-bottom: none;
+    }
+
+    .citations {
+      font-size: 13px;
+      color: var(--muted);
+      margin-top: 18px;
+    }
+
+    .debug {
+      font-size: 12px;
+      color: var(--muted);
+      margin-top: 10px;
+      word-break: break-word;
+    }
+
+    .spinner {
+      display: inline-block;
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      border: 2px solid rgba(148, 163, 184, 0.35);
+      border-top-color: var(--accent);
+      animation: spin 0.75s linear infinite;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    @media (max-width: 720px) {
+      .app-shell {
+        padding: 32px 18px 56px;
+      }
+
+      .card {
+        padding: 22px 20px;
+      }
+
+      .top-bar {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .actions {
+        justify-content: stretch;
+      }
+
+      button.primary, button.secondary {
+        flex: 1 1 auto;
+        text-align: center;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="app-shell">
+    <div class="top-bar">
+      <div class="brand">
+        <h1>Project Samarth</h1>
+        <span>Intelligent agri & climate Q&A over live data.gov.in sources</span>
+      </div>
+      <button id="themeToggle" class="toggle-btn" type="button">
+        <span class="toggle-swatch" aria-hidden="true"></span>
+        <span class="toggle-label">Light</span>
+      </button>
+    </div>
+
+    <div class="card">
+      <p>
+        Ask natural language questions about crop production, rainfall, and policy scenarios.
+        Choose a curated prompt to get started or craft your own query. Every answer cites its source.
+      </p>
+    </div>
+
+    <div class="card">
+      <div class="control-grid">
+        <div class="controls-row">
+          <div>
+            <label for="backendUrl">Backend Endpoint</label>
+            <input id="backendUrl" type="url" placeholder="http://127.0.0.1:8000" />
+          </div>
+          <div>
+            <label for="samplePrompts">Sample Prompts</label>
+            <select id="samplePrompts">
+              <option value="">— Select a sample question —</option>
+              <option value="Compare average rainfall in Punjab and Tamil Nadu over last 5 years. Show top 3 Rice producing districts in each state.">
+                Compare rainfall Punjab vs Tamil Nadu + top Rice crops.
+              </option>
+              <option value="Which districts in Karnataka and Kerala had highest and lowest Sugarcane production in 2020?">
+                District extremes for Sugarcane in Karnataka and Kerala (2020).
+              </option>
+              <option value="Analyze Paddy production trend in Maharashtra for last 5 years and its correlation with monsoon patterns.">
+                Paddy trend vs monsoon in Maharashtra over 5 years.
+              </option>
+              <option value="Should we shift from Cotton to Maize in Karnataka? Provide data-driven policy arguments using rainfall and production data.">
+                Policy case: Shift from Cotton to Maize in Karnataka.
+              </option>
+            </select>
+          </div>
+        </div>
+
+        <div>
+          <label for="question">Your Question</label>
+          <textarea id="question" placeholder="Compare the average annual rainfall in Karnataka and Maharashtra for the last 5 years. List the top 3 most produced crops of Maize in each of those states during the same period."></textarea>
+        </div>
+
+        <div class="actions">
+          <div class="status-row" id="status">
+            <span class="dot" aria-hidden="true"></span>
+            <span class="status-text">Idle</span>
+          </div>
+          <div style="flex:1"></div>
+          <button id="clearBtn" class="secondary" type="button">Clear</button>
+          <button id="askBtn" class="primary" type="button">Ask Question</button>
+        </div>
+      </div>
+    </div>
+
+    <div id="response" class="card" style="display:none;">
+      <div class="answer" id="answerText"></div>
+      <div id="tables"></div>
+      <div class="citations" id="citations"></div>
+      <div class="debug" id="debugInfo"></div>
+    </div>
+  </div>
+
+  <script>
+    const askBtn = document.getElementById("askBtn");
+    const clearBtn = document.getElementById("clearBtn");
+    const questionInput = document.getElementById("question");
+    const statusEl = document.getElementById("status");
+    const statusText = document.querySelector(".status-text");
+    const responseCard = document.getElementById("response");
+    const answerText = document.getElementById("answerText");
+    const tablesEl = document.getElementById("tables");
+    const citationsEl = document.getElementById("citations");
+    const debugEl = document.getElementById("debugInfo");
+    const backendInput = document.getElementById("backendUrl");
+    const sampleSelect = document.getElementById("samplePrompts");
+    const themeToggle = document.getElementById("themeToggle");
+    const toggleLabel = themeToggle.querySelector(".toggle-label");
+
+    const DEFAULT_BACKEND = "http://127.0.0.1:8000";
+    const storedBackend = window.localStorage.getItem("samarthBackendUrl");
+    backendInput.value = storedBackend || DEFAULT_BACKEND;
+
+    const storedTheme = window.localStorage.getItem("samarthTheme");
+    const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+
+    function applyTheme(theme) {
+      document.body.setAttribute("data-theme", theme);
+      toggleLabel.textContent = theme === "dark" ? "Dark" : "Light";
+    }
+
+    if (storedTheme) {
+      applyTheme(storedTheme);
+    } else {
+      applyTheme(prefersDark ? "dark" : "light");
+    }
+
+    themeToggle.addEventListener("click", () => {
+      const current = document.body.getAttribute("data-theme") === "dark" ? "dark" : "light";
+      const next = current === "dark" ? "light" : "dark";
+      applyTheme(next);
+      window.localStorage.setItem("samarthTheme", next);
+    });
+
+    backendInput.addEventListener("change", () => {
+      const value = backendInput.value.trim() || DEFAULT_BACKEND;
+      backendInput.value = value;
+      window.localStorage.setItem("samarthBackendUrl", value);
+    });
+
+    function setStatus(text, active = false) {
+      statusText.textContent = text;
+      statusEl.classList.toggle("active", active);
+    }
+
+    async function askQuestion() {
+      const question = questionInput.value.trim();
+      if (!question) {
+        setStatus("Please type a question first.", false);
+        questionInput.focus();
+        return;
+      }
+      askBtn.disabled = true;
+      setStatus("Thinking…", true);
+      tablesEl.innerHTML = "";
+      citationsEl.textContent = "";
+      answerText.textContent = "";
+      debugEl.textContent = "";
+      responseCard.style.display = "none";
+
+      const backendUrl = (backendInput.value.trim() || DEFAULT_BACKEND).replace(/\/$/, "");
+      window.localStorage.setItem("samarthBackendUrl", backendUrl);
+
+      try {
+        const res = await fetch(`${backendUrl}/ask`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ question })
+        });
+        if (!res.ok) {
+          let detail = "Something went wrong.";
+          try {
+            const err = await res.json();
+            detail = err.detail || detail;
+          } catch (parseErr) {
+            // keep default detail
+          }
+          throw new Error(detail);
+        }
+
+        const data = await res.json();
+        answerText.textContent = data.answer;
+        tablesEl.innerHTML = "";
+        (data.tables || []).forEach(tbl => {
+          const wrapper = document.createElement("div");
+          const heading = document.createElement("h3");
+          heading.textContent = tbl.title;
+          wrapper.appendChild(heading);
+
+          const table = document.createElement("table");
+          const thead = document.createElement("thead");
+          const trHead = document.createElement("tr");
+          tbl.headers.forEach(h => {
+            const th = document.createElement("th");
+            th.textContent = h;
+            trHead.appendChild(th);
+          });
+          thead.appendChild(trHead);
+          table.appendChild(thead);
+
+          const tbody = document.createElement("tbody");
+          tbl.rows.forEach(row => {
+            const tr = document.createElement("tr");
+            row.forEach(cell => {
+              const td = document.createElement("td");
+              td.textContent = cell === null || cell === undefined ? "—" : cell;
+              tr.appendChild(td);
+            });
+            tbody.appendChild(tr);
+          });
+          table.appendChild(tbody);
+          wrapper.appendChild(table);
+          tablesEl.appendChild(wrapper);
+        });
+        const citations = (data.citations || [])
+          .map(c => `${c.dataset} → ${c.source} (resource ${c.resource_id})`);
+        citationsEl.textContent = citations.length ? `Citations: ${citations.join("; ")}` : "";
+        debugEl.textContent = data.debug && Object.keys(data.debug).length
+          ? `Debug: ${JSON.stringify(data.debug)}`
+          : "";
+
+        responseCard.style.display = "block";
+        setStatus("Completed", false);
+      } catch (err) {
+        responseCard.style.display = "block";
+        answerText.textContent = "";
+        tablesEl.innerHTML = `<div style="color:#ef4444;font-weight:600;">${err.message}</div>`;
+        debugEl.textContent = "";
+        setStatus("Error", false);
+      } finally {
+        askBtn.disabled = false;
+      }
+    }
+
+    askBtn.addEventListener("click", askQuestion);
+    clearBtn.addEventListener("click", () => {
+      questionInput.value = "";
+      sampleSelect.value = "";
+      responseCard.style.display = "none";
+      setStatus("Idle", false);
+      questionInput.focus();
+    });
+
+    questionInput.addEventListener("keydown", (ev) => {
+      if (ev.key === "Enter" && (ev.metaKey || ev.ctrlKey)) {
+        askQuestion();
+      }
+    });
+
+    sampleSelect.addEventListener("change", function () {
+      if (this.value) {
+        questionInput.value = this.value;
+        questionInput.focus();
+      }
+    });
+  </script>
+</body>
+</html>

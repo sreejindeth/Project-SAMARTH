@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test Backend Connection</title>
+</head>
+<body>
+    <h1>Backend Connection Test</h1>
+    <button onclick="testConnection()">Test Connection</button>
+    <pre id="result"></pre>
+
+    <script>
+        async function testConnection() {
+            const resultEl = document.getElementById('result');
+            resultEl.textContent = 'Testing...';
+
+            try {
+                const backendUrl = 'http://127.0.0.1:8000';
+                console.log('Testing:', backendUrl);
+
+                const res = await fetch(`${backendUrl}/ask`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        question: "Compare the average annual rainfall in Karnataka and Maharashtra for the last 5 years. List the top 3 most produced crops of Maize in each of those states during the same period."
+                    })
+                });
+
+                console.log('Response status:', res.status);
+                console.log('Response ok:', res.ok);
+
+                const data = await res.json();
+                resultEl.textContent = JSON.stringify(data, null, 2);
+
+            } catch (err) {
+                console.error('Error:', err);
+                resultEl.textContent = 'ERROR: ' + err.message + '\n\nCheck browser console for details.';
+            }
+        }
+    </script>
+</body>
+</html>

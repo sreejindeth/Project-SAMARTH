@@ -1,0 +1,16 @@
+app:
+  dataset_cache_dir: ../data
+  default_year_window: 5
+datasets:
+  agriculture:
+    resource_id: "9ef84268-d588-465a-a308-a864a43d0070"
+    local_sample: "../data/sample_agriculture.csv"
+    key_fields: ["state", "district", "crop", "year"]
+    numeric_fields: ["production_tonnes"]
+    source_url: "https://data.gov.in/resources/district-wise-crop-production-statistics"
+  rainfall:
+    resource_id: "cca5f77c-68b3-43df-bd01-beb3b69204ed"
+    local_sample: "../data/sample_rainfall.csv"
+    key_fields: ["state", "year"]
+    numeric_fields: ["annual_rainfall_mm"]
+    source_url: "https://data.gov.in/resources/rainfall-sub-division-wise-distribution"
