@@ -1,0 +1,141 @@
+state,district,crop,year,production_tonnes
+Karnataka,Bengaluru,Maize,2018,120.5
+Karnataka,Bengaluru,Paddy,2018,300.0
+Karnataka,Mysuru,Maize,2018,95.2
+Karnataka,Mysuru,Paddy,2018,250.4
+Karnataka,Bengaluru,Maize,2019,130.1
+Karnataka,Bengaluru,Paddy,2019,320.0
+Karnataka,Mysuru,Maize,2019,100.0
+Karnataka,Mysuru,Paddy,2019,260.0
+Karnataka,Bengaluru,Maize,2020,140.0
+Karnataka,Bengaluru,Paddy,2020,330.0
+Karnataka,Mysuru,Maize,2020,115.0
+Karnataka,Mysuru,Paddy,2020,270.0
+Karnataka,Bengaluru,Maize,2021,150.0
+Karnataka,Bengaluru,Paddy,2021,340.0
+Karnataka,Mysuru,Maize,2021,120.0
+Karnataka,Mysuru,Paddy,2021,275.0
+Karnataka,Bengaluru,Maize,2022,160.0
+Karnataka,Bengaluru,Paddy,2022,345.0
+Karnataka,Mysuru,Maize,2022,130.0
+Karnataka,Mysuru,Paddy,2022,280.0
+Maharashtra,Pune,Soybean,2018,200.0
+Maharashtra,Nagpur,Soybean,2018,150.0
+Maharashtra,Pune,Cotton,2018,220.0
+Maharashtra,Nagpur,Cotton,2018,210.0
+Maharashtra,Pune,Soybean,2019,210.0
+Maharashtra,Nagpur,Soybean,2019,155.0
+Maharashtra,Pune,Cotton,2019,225.0
+Maharashtra,Nagpur,Cotton,2019,215.0
+Maharashtra,Pune,Soybean,2020,215.0
+Maharashtra,Nagpur,Soybean,2020,160.0
+Maharashtra,Pune,Cotton,2020,230.0
+Maharashtra,Nagpur,Cotton,2020,220.0
+Maharashtra,Pune,Soybean,2021,220.0
+Maharashtra,Nagpur,Soybean,2021,165.0
+Maharashtra,Pune,Cotton,2021,235.0
+Maharashtra,Nagpur,Cotton,2021,225.0
+Maharashtra,Pune,Soybean,2022,225.0
+Maharashtra,Nagpur,Soybean,2022,170.0
+Maharashtra,Pune,Cotton,2022,240.0
+Maharashtra,Nagpur,Cotton,2022,230.0
+Maharashtra,Pune,Maize,2018,145.0
+Maharashtra,Nagpur,Maize,2018,135.0
+Maharashtra,Pune,Maize,2019,150.0
+Maharashtra,Nagpur,Maize,2019,140.0
+Maharashtra,Pune,Maize,2020,155.0
+Maharashtra,Nagpur,Maize,2020,145.0
+Maharashtra,Pune,Maize,2021,160.0
+Maharashtra,Nagpur,Maize,2021,150.0
+Maharashtra,Pune,Maize,2022,165.0
+Maharashtra,Nagpur,Maize,2022,155.0
+Maharashtra,Pune,Pearl Millet,2018,85.0
+Maharashtra,Nagpur,Pearl Millet,2018,75.0
+Maharashtra,Pune,Pearl Millet,2019,90.0
+Maharashtra,Nagpur,Pearl Millet,2019,80.0
+Maharashtra,Pune,Pearl Millet,2020,95.0
+Maharashtra,Nagpur,Pearl Millet,2020,85.0
+Maharashtra,Pune,Pearl Millet,2021,100.0
+Maharashtra,Nagpur,Pearl Millet,2021,88.0
+Maharashtra,Pune,Pearl Millet,2022,105.0
+Maharashtra,Nagpur,Pearl Millet,2022,92.0
+Maharashtra,Pune,Sugarcane,2018,450.0
+Maharashtra,Nagpur,Sugarcane,2018,380.0
+Maharashtra,Pune,Sugarcane,2019,460.0
+Maharashtra,Nagpur,Sugarcane,2019,390.0
+Maharashtra,Pune,Sugarcane,2020,470.0
+Maharashtra,Nagpur,Sugarcane,2020,400.0
+Maharashtra,Pune,Sugarcane,2021,480.0
+Maharashtra,Nagpur,Sugarcane,2021,410.0
+Maharashtra,Pune,Sugarcane,2022,490.0
+Maharashtra,Nagpur,Sugarcane,2022,420.0
+Punjab,Ludhiana,Wheat,2018,520.0
+Punjab,Amritsar,Wheat,2018,480.0
+Punjab,Ludhiana,Maize,2018,180.0
+Punjab,Amritsar,Maize,2018,160.0
+Punjab,Ludhiana,Wheat,2019,540.0
+Punjab,Amritsar,Wheat,2019,500.0
+Punjab,Ludhiana,Maize,2019,190.0
+Punjab,Amritsar,Maize,2019,170.0
+Punjab,Ludhiana,Wheat,2020,560.0
+Punjab,Amritsar,Wheat,2020,520.0
+Punjab,Ludhiana,Maize,2020,200.0
+Punjab,Amritsar,Maize,2020,180.0
+Punjab,Ludhiana,Wheat,2021,580.0
+Punjab,Amritsar,Wheat,2021,540.0
+Punjab,Ludhiana,Maize,2021,210.0
+Punjab,Amritsar,Maize,2021,190.0
+Punjab,Ludhiana,Wheat,2022,600.0
+Punjab,Amritsar,Wheat,2022,560.0
+Punjab,Ludhiana,Maize,2022,220.0
+Punjab,Amritsar,Maize,2022,200.0
+Punjab,Ludhiana,Paddy,2018,340.0
+Punjab,Amritsar,Paddy,2018,320.0
+Punjab,Ludhiana,Paddy,2019,350.0
+Punjab,Amritsar,Paddy,2019,330.0
+Punjab,Ludhiana,Paddy,2020,360.0
+Punjab,Amritsar,Paddy,2020,340.0
+Punjab,Ludhiana,Paddy,2021,370.0
+Punjab,Amritsar,Paddy,2021,350.0
+Punjab,Ludhiana,Paddy,2022,380.0
+Punjab,Amritsar,Paddy,2022,360.0
+Tamil Nadu,Chennai,Rice,2018,280.0
+Tamil Nadu,Coimbatore,Rice,2018,250.0
+Tamil Nadu,Chennai,Maize,2018,110.0
+Tamil Nadu,Coimbatore,Maize,2018,105.0
+Tamil Nadu,Chennai,Rice,2019,290.0
+Tamil Nadu,Coimbatore,Rice,2019,260.0
+Tamil Nadu,Chennai,Maize,2019,115.0
+Tamil Nadu,Coimbatore,Maize,2019,110.0
+Tamil Nadu,Chennai,Rice,2020,300.0
+Tamil Nadu,Coimbatore,Rice,2020,270.0
+Tamil Nadu,Chennai,Maize,2020,120.0
+Tamil Nadu,Coimbatore,Maize,2020,115.0
+Tamil Nadu,Chennai,Rice,2021,310.0
+Tamil Nadu,Coimbatore,Rice,2021,280.0
+Tamil Nadu,Chennai,Maize,2021,125.0
+Tamil Nadu,Coimbatore,Maize,2021,120.0
+Tamil Nadu,Chennai,Rice,2022,320.0
+Tamil Nadu,Coimbatore,Rice,2022,290.0
+Tamil Nadu,Chennai,Maize,2022,130.0
+Tamil Nadu,Coimbatore,Maize,2022,125.0
+Kerala,Thiruvananthapuram,Rice,2018,190.0
+Kerala,Kochi,Rice,2018,180.0
+Kerala,Thiruvananthapuram,Maize,2018,65.0
+Kerala,Kochi,Maize,2018,60.0
+Kerala,Thiruvananthapuram,Rice,2019,195.0
+Kerala,Kochi,Rice,2019,185.0
+Kerala,Thiruvananthapuram,Maize,2019,68.0
+Kerala,Kochi,Maize,2019,63.0
+Kerala,Thiruvananthapuram,Rice,2020,200.0
+Kerala,Kochi,Rice,2020,190.0
+Kerala,Thiruvananthapuram,Maize,2020,70.0
+Kerala,Kochi,Maize,2020,65.0
+Kerala,Thiruvananthapuram,Rice,2021,205.0
+Kerala,Kochi,Rice,2021,195.0
+Kerala,Thiruvananthapuram,Maize,2021,72.0
+Kerala,Kochi,Maize,2021,67.0
+Kerala,Thiruvananthapuram,Rice,2022,210.0
+Kerala,Kochi,Rice,2022,200.0
+Kerala,Thiruvananthapuram,Maize,2022,75.0
+Kerala,Kochi,Maize,2022,70.0
