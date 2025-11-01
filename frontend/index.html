@@ -387,7 +387,7 @@
         <div class="controls-row">
           <div>
             <label for="backendUrl">Backend Endpoint</label>
-            <input id="backendUrl" type="url" placeholder="http://127.0.0.1:8000" />
+            <input id="backendUrl" type="url" placeholder="https://project-samarth-csgz.onrender.com" value="https://project-samarth-csgz.onrender.com" />
           </div>
           <div>
             <label for="samplePrompts">Sample Prompts</label>
@@ -450,7 +450,7 @@
     const themeToggle = document.getElementById("themeToggle");
     const toggleLabel = themeToggle.querySelector(".toggle-label");
 
-    const DEFAULT_BACKEND = "http://127.0.0.1:8000";
+    const DEFAULT_BACKEND = "https://project-samarth-csgz.onrender.com";
     const storedBackend = window.localStorage.getItem("samarthBackendUrl");
     backendInput.value = storedBackend || DEFAULT_BACKEND;
 
