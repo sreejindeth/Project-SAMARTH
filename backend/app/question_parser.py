@@ -96,7 +96,7 @@ def _extract_state_pair(text: str) -> tuple[Optional[str], Optional[str]]:
 
 
 def _extract_region(text: str) -> Optional[str]:
-    match = re.search(r"in\s+([A-Za-z\s]+?)(?:\s+over|\s+during|\s+across|,|\.|\?|$)", text, re.IGNORECASE)
+    match = re.search(r"in\s+([A-Za-z\s]+?)(?:\s+over|\s+during|\s+across|\s+for|,|\.|\?|$)", text, re.IGNORECASE)
     if match:
         return _normalize_state_name(_clean_token(match.group(1)))
     match = re.search(r"region[_\s]?([A-Za-z]+)", text, re.IGNORECASE)
@@ -109,7 +109,13 @@ def _extract_crop(text: str) -> Optional[str]:
     match = re.search(r"crop(?:_type)?[_\s]?([A-Za-z]+)", text, re.IGNORECASE)
     if match:
         return _clean_token(match.group(1))
+    match = re.search(r"([A-Za-z\s]+?)\s+production\s+trend", text, re.IGNORECASE)
+    if match:
+        return _clean_token(match.group(1))
     match = re.search(r"production trend of\s+([A-Za-z\s]+?)\s+in", text, re.IGNORECASE)
+    if match:
+        return _clean_token(match.group(1))
+    match = re.search(r"([A-Za-z\s]+?)\s+production\s+(?:in|of)", text, re.IGNORECASE)
     if match:
         return _clean_token(match.group(1))
     match = re.search(r"production of\s+([A-Za-z\s]+?)(?:\s+in|\s+over|,|\.|\?|$)", text, re.IGNORECASE)
@@ -122,6 +128,13 @@ def _extract_crop_pair(text: str) -> list[str]:
     crops = re.findall(r"crop[_\s]?type[_\s]?([A-Za-z]+)", text, re.IGNORECASE)
     if crops:
         return [_clean_token(c) for c in crops]
+    shift_match = re.search(
+        r"shift\s+from\s+([A-Za-z\s]+?)\s+to\s+([A-Za-z\s]+?)(?:\s+in|\s+across|\.|$)",
+        text,
+        re.IGNORECASE,
+    )
+    if shift_match:
+        return [_clean_token(shift_match.group(1)), _clean_token(shift_match.group(2))]
     promote_match = re.search(
         r"promote\s+([A-Za-z\s]+?)\s+over\s+([A-Za-z\s]+?)(?:\s+in|\s+across|\.|$)",
         text,
