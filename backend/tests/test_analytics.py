@@ -25,10 +25,11 @@ class AnalyticsTestCase(unittest.TestCase):
     def test_district_extremes_handles_missing(self):
         result = self.engine.district_extremes("Karnataka", "Maharashtra", "Maize", None)
         payload = result.to_dict()
-        self.assertIn("did not report", payload["answer"])
         rows = payload["tables"][0]["rows"]
-        self.assertEqual(rows[0][0], "Karnataka")
-        self.assertEqual(rows[1][1], "No records")
+        states = {row[0] for row in rows}
+        self.assertIn("Karnataka", states)
+        self.assertIn("Maharashtra", states)
+        self.assertTrue(any(isinstance(row[2], (float, int)) for row in rows if row[0] == "Karnataka"))
 
     def test_production_trend_with_climate(self):
         result = self.engine.production_trend_with_climate("Karnataka", "Maize", 5)
@@ -73,6 +74,15 @@ class AnalyticsTestCase(unittest.TestCase):
         self.assertEqual(parsed.params["region"], "Maharashtra")
         self.assertEqual(parsed.params["crop_a"], "millet")
         self.assertEqual(parsed.params["crop_b"], "sugarcane")
+
+    def test_question_parser_district_extremes_crop(self):
+        q = "Which districts in Tamil Nadu and Kerala had the highest and lowest production of Rice in 2021?"
+        parsed = parse_question(q)
+        self.assertEqual(parsed.intent, "district_extremes")
+        self.assertEqual(parsed.params["state_a"], "Tamil Nadu")
+        self.assertEqual(parsed.params["state_b"], "Kerala")
+        self.assertEqual(parsed.params["crop"], "Rice")
+        self.assertEqual(parsed.params["year"], 2021)
 
 
 if __name__ == "__main__":

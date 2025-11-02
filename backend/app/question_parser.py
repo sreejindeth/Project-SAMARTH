@@ -11,6 +11,7 @@ class ParsedQuestion:
 
 # Match state names (1-3 words max) - more restrictive but case insensitive
 STATE_NAME_PATTERN = r"[A-Za-z]+(?:\s+[A-Za-z]+){0,2}"
+CROP_NAME_PATTERN = r"[A-Za-z]+(?:\s+[A-Za-z]+){0,2}"
 
 STATE_PAIR_REGEX = re.compile(
     rf"in\s+({STATE_NAME_PATTERN}?)\s+(?:and|vs\.?|versus|&)\s+({STATE_NAME_PATTERN}?)\b",
@@ -106,21 +107,39 @@ def _extract_region(text: str) -> Optional[str]:
 
 
 def _extract_crop(text: str) -> Optional[str]:
+    def _post_process(candidate: Optional[str]) -> Optional[str]:
+        if not candidate:
+            return None
+        cleaned = _clean_token(candidate)
+        if not cleaned:
+            return None
+        cleaned = re.sub(r"\s+(?:in|across|over|during|for)\b.*$", "", cleaned, flags=re.IGNORECASE)
+        return cleaned or None
+
+    specific_patterns = [
+        rf"production trend of\s+({CROP_NAME_PATTERN})(?=\s+(?:in|across|over|during|for)\b|,|\.|\?|$)",
+        rf"production of\s+({CROP_NAME_PATTERN})(?=\s+(?:in|across|over|during|for)\b|,|\.|\?|$)",
+        rf"highest production of\s+({CROP_NAME_PATTERN})(?=\s+(?:in|across|during)\b|,|\.|\?|$)",
+        rf"lowest production of\s+({CROP_NAME_PATTERN})(?=\s+(?:in|across|during)\b|,|\.|\?|$)",
+    ]
+    for pattern in specific_patterns:
+        match = re.search(pattern, text, re.IGNORECASE)
+        if match:
+            return _post_process(match.group(1))
+
     match = re.search(r"crop(?:_type)?[_\s]?([A-Za-z]+)", text, re.IGNORECASE)
     if match:
-        return _clean_token(match.group(1))
-    match = re.search(r"([A-Za-z\s]+?)\s+production\s+trend", text, re.IGNORECASE)
-    if match:
-        return _clean_token(match.group(1))
-    match = re.search(r"production trend of\s+([A-Za-z\s]+?)\s+in", text, re.IGNORECASE)
-    if match:
-        return _clean_token(match.group(1))
-    match = re.search(r"([A-Za-z\s]+?)\s+production\s+(?:in|of)", text, re.IGNORECASE)
-    if match:
-        return _clean_token(match.group(1))
-    match = re.search(r"production of\s+([A-Za-z\s]+?)(?:\s+in|\s+over|,|\.|\?|$)", text, re.IGNORECASE)
-    if match:
-        return _clean_token(match.group(1))
+        return _post_process(match.group(1))
+
+    fallback_patterns = [
+        rf"({CROP_NAME_PATTERN})\s+production\s+trend",
+        rf"({CROP_NAME_PATTERN})\s+production\s+(?:in|of)",
+    ]
+    for pattern in fallback_patterns:
+        match = re.search(pattern, text, re.IGNORECASE)
+        if match:
+            return _post_process(match.group(1))
+
     return None
 
 
